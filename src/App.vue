@@ -18,14 +18,8 @@ const appStore = useAppStore();
 
     <side-nav />
 
-    <v-main class="px-2 mt-2">
+    <v-main>
       <router-view />
     </v-main>
   </v-app>
 </template>
-
-<style>
-body {
-  background: lightblue;
-}
-</style>
