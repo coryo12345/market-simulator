@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { onMounted, shallowRef, watchEffect } from 'vue';
-import { useMarketStore } from '../../stores/market';
-import { VDataTable } from 'vuetify/components';
-import GrowthIcon from './GrowthIcon.vue';
 import { storeToRefs } from 'pinia';
+import { onMounted, shallowRef } from 'vue';
+import { VDataTable } from 'vuetify/components';
+import { useMarketStore } from '../../stores/market';
+import GrowthIcon from './GrowthIcon.vue';
 
 const marketStore = useMarketStore();
 onMounted(() => {
