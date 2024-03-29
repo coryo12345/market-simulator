@@ -9,6 +9,7 @@ export enum Growth {
 
 export interface Company {
   readonly name: string;
+  readonly description: string;
   readonly abbr: string;
   readonly volatility: number; // number 0-1 which represents the likelyhood for growth to change
   readonly totalShares: number;

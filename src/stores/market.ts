@@ -31,8 +31,10 @@ function createNewMarket(): Stock[] {
     stocks.push({
       company,
       historic: [],
-      availableShares: company.totalShares * (Math.random() * 0.5 + 0.5),
-      currentPrice: Math.random() * 30 + 2,
+      availableShares: Math.round(
+        company.totalShares * (Math.random() * 0.5 + 0.5),
+      ),
+      currentPrice: Math.random() * 100 + 20,
       growth: growths[Math.floor(Math.random() * growths.length)],
     });
   }

@@ -19,7 +19,9 @@ const appStore = useAppStore();
     <side-nav />
 
     <v-main>
-      <router-view />
+      <div class="pa-4">
+        <router-view />
+      </div>
     </v-main>
   </v-app>
 </template>

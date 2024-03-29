@@ -3,7 +3,7 @@ import MarketStockList from '../components/market/MarketStockList.vue';
 </script>
 
 <template>
-  <v-card class="ma-4">
+  <v-card>
     <template #title> Current Stock Data </template>
     <template #subtitle> Live view of data for all stocks </template>
     <template #text>
