@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { Time } from '../../models/time';
 
 const props = defineProps<{
   title?: string;
@@ -20,6 +21,9 @@ const chartOptions = computed(() => ({
     toolbar: {
       autoSelected: 'zoom',
     },
+  },
+  stroke: {
+    curve: 'straight',
   },
   dataLabels: {
     enabled: false,
@@ -52,7 +56,12 @@ const chartOptions = computed(() => ({
     },
   },
   xaxis: {
-    type: 'datetime',
+    // type: 'datetime',
+    labels: {
+      formatter: function (val: number) {
+        return new Time(val).toString();
+      },
+    },
   },
   tooltip: {
     shared: false,

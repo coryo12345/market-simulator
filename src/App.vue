@@ -1,8 +1,15 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import SideNav from './components/app/SideNav.vue';
 import { useAppStore } from './stores/app';
+import { useMarketStore } from './stores/market';
 
 const appStore = useAppStore();
+const marketStore = useMarketStore();
+
+onMounted(() => {
+  marketStore.init();
+});
 </script>
 
 <template>

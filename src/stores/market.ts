@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
-import { shallowRef } from 'vue';
-import { GROWTHS, Growth, Stock } from '../models/market';
+import { ref } from 'vue';
 import { COMPANIES } from '../companies';
+import { GROWTHS, Growth, Stock } from '../models/market';
 import { Time } from '../models/time';
 
 export const useMarketStore = defineStore('market', function () {
-  const stocks = shallowRef<Stock[]>([]);
+  const stocks = ref<Stock[]>([]);
 
   function init() {
     // check if state is in localstorage, if so use it. if not, create new market
@@ -19,9 +19,14 @@ export const useMarketStore = defineStore('market', function () {
     }, 1000 * 10);
   }
 
+  function getByAbbr(abbr: string): Stock | undefined {
+    return stocks.value.find((s) => s.company.abbr === abbr);
+  }
+
   return {
     stocks,
     init,
+    getByAbbr,
   };
 });
 

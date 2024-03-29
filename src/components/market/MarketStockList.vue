@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { onMounted, shallowRef } from 'vue';
+import { shallowRef } from 'vue';
 import { VDataTable } from 'vuetify/components';
 import { useMarketStore } from '../../stores/market';
 import GrowthIcon from './GrowthIcon.vue';
 
 const marketStore = useMarketStore();
-onMounted(() => {
-  marketStore.init();
-});
 
 const { stocks } = storeToRefs(marketStore);
 
