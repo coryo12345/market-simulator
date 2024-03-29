@@ -12,6 +12,9 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { router } from './router';
 import { createPinia } from 'pinia';
 
+// @ts-ignore
+import VueApexCharts from 'vue3-apexcharts';
+
 const pinia = createPinia();
 
 const vuetify = createVuetify({
@@ -26,4 +29,10 @@ const vuetify = createVuetify({
   },
 });
 
-createApp(App).use(router).use(pinia).use(vuetify).mount('#app');
+const app = createApp(App);
+app.use(router);
+app.use(pinia);
+app.use(vuetify);
+app.use(VueApexCharts);
+
+app.mount('#app');

@@ -10,10 +10,12 @@
     "lint": "prettier . --write"
   },
   "dependencies": {
+    "apexcharts": "^3.48.0",
     "pinia": "^2.1.7",
     "prettier": "^3.2.5",
     "vue": "^3.2.47",
     "vue-router": "4",
+    "vue3-apexcharts": "^1.5.2",
     "vuetify": "^3.5.12"
   },
   "devDependencies": {
