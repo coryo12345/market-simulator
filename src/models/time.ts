@@ -3,6 +3,10 @@ export type TimeRaw = number;
 export class Time {
   private static currentTime: TimeRaw = 0;
 
+  static SetTime(time: TimeRaw) {
+    Time.currentTime = time;
+  }
+
   static IncrementTime(): TimeRaw {
     Time.currentTime++;
     return Time.currentTime;

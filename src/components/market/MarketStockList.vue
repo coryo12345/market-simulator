@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { onMounted, shallowRef } from 'vue';
+import { onMounted, shallowRef, watchEffect } from 'vue';
 import { useMarketStore } from '../../stores/market';
 import { VDataTable } from 'vuetify/components';
 import GrowthIcon from './GrowthIcon.vue';
+import { storeToRefs } from 'pinia';
 
 const marketStore = useMarketStore();
 onMounted(() => {
   marketStore.init();
 });
+
+const { stocks } = storeToRefs(marketStore);
 
 const headers = shallowRef<Record<string, any>[]>([
   {
@@ -30,7 +33,7 @@ const headers = shallowRef<Record<string, any>[]>([
 </script>
 
 <template>
-  <v-data-table :headers="headers" :items="marketStore.stocks">
+  <v-data-table :headers="headers" :items="stocks">
     <template #item.company.name="{ item }">
       <router-link
         :to="{ name: 'stock', params: { abbr: item.company.abbr } }"

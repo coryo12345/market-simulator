@@ -7,6 +7,15 @@ export enum Growth {
   INCREASE_MAJOR,
 }
 
+export const GROWTHS: Growth[] = [
+  Growth.DECREASE_MAJOR,
+  Growth.DECREASE,
+  Growth.DECREASE_MINOR,
+  Growth.INCREASE_MINOR,
+  Growth.INCREASE,
+  Growth.INCREASE_MAJOR,
+];
+
 export interface Company {
   readonly name: string;
   readonly description: string;
@@ -17,13 +26,8 @@ export interface Company {
 
 export interface Stock {
   readonly company: Company;
-  historic: StockPrice[];
+  historic: number[];
   availableShares: number;
   currentPrice: number;
   growth: Growth;
-}
-
-export interface StockPrice {
-  time: Date;
-  price: number;
 }
