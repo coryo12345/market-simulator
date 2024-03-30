@@ -4,6 +4,7 @@ import { shallowRef } from 'vue';
 import { VDataTable } from 'vuetify/components';
 import { useMarketStore } from '../../stores/market';
 import GrowthIcon from './GrowthIcon.vue';
+import StockTransactionDialog from './StockTransactionDialog.vue';
 
 const marketStore = useMarketStore();
 
@@ -25,6 +26,10 @@ const headers = shallowRef<Record<string, any>[]>([
   {
     title: 'Available Shares',
     value: 'availableShares',
+  },
+  {
+    title: 'Buy',
+    value: 'buy',
   },
 ]);
 </script>
@@ -63,6 +68,9 @@ const headers = shallowRef<Record<string, any>[]>([
           </span>
         </v-tooltip>
       </span>
+    </template>
+    <template #item.buy="{ item }">
+      <stock-transaction-dialog :stock="item" type="buy" />
     </template>
   </v-data-table>
 </template>

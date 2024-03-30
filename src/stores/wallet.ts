@@ -1,19 +1,30 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
+import { OwnedStock } from '../models/wallet';
+import { useMarketStore } from './market';
 
 export const useWalletStore = defineStore('wallet', function () {
-  const money = ref(1000);
+  const marketStore = useMarketStore();
 
-  const ownedStocks = ref([]);
+  const money = ref(1000.0);
+  const ownedStocks = ref<OwnedStock[]>([]);
 
-  const netWorth = computed(() => {
-    // TODO - include value of stocks owned
-    return money;
-  });
+  const stockValue = computed<number>(() =>
+    ownedStocks.value.reduce((prev, curr) => {
+      const stock = marketStore.stocks.find(
+        (s) => s.company.abbr === curr.ticker,
+      );
+      if (!stock) return prev;
+      return prev + stock.currentPrice * curr.sharesOwned;
+    }, 0),
+  );
+
+  const netWorth = computed<number>(() => stockValue.value + money.value);
 
   return {
     money,
     ownedStocks,
+    stockValue,
     netWorth,
   };
 });
