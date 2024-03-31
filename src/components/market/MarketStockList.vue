@@ -5,6 +5,7 @@ import { VDataTable } from 'vuetify/components';
 import { useMarketStore } from '../../stores/market';
 import GrowthIcon from './GrowthIcon.vue';
 import StockTransactionDialog from './StockTransactionDialog.vue';
+import { formatMoney } from '../../utils';
 
 const marketStore = useMarketStore();
 
@@ -46,15 +47,12 @@ const headers = shallowRef<Record<string, any>[]>([
     </template>
     <template #item.currentPrice="{ item }">
       <span class="d-flex align-center w-fit">
-        ${{ item.currentPrice.toFixed(2) }}
+        {{ formatMoney(item.currentPrice) }}
         <growth-icon :growth="item.growth" />
         <v-tooltip location="top" activator="parent">
           <span>
-            Market Cap: ${{
-              parseFloat(
-                (item.currentPrice * item.company.totalShares).toFixed(2),
-              ).toLocaleString()
-            }}
+            Market Cap:
+            {{ formatMoney(item.currentPrice * item.company.totalShares) }}
           </span>
         </v-tooltip>
       </span>

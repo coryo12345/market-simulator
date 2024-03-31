@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Ref, computed, ref } from 'vue';
-import { Stock } from '../../models/market';
-import { formatMoney } from '../../utils';
-import { useWalletStore } from '../../stores/wallet';
+import { computed, ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
+import { Stock } from '../../models/market';
+import { useWalletStore } from '../../stores/wallet';
+import { formatMoney } from '../../utils';
 
 const props = defineProps<{
   type: 'buy' | 'sell';
@@ -12,6 +12,11 @@ const props = defineProps<{
 
 const walletStore = useWalletStore();
 const { smAndDown } = useDisplay();
+
+const isDialogActive = ref(false);
+watch(isDialogActive, () => {
+  numShares.value = 0;
+});
 
 const icon = computed(() =>
   props.type === 'buy' ? 'mdi-cart-arrow-down' : 'mdi-cart-arrow-up',
@@ -52,7 +57,16 @@ const numShares = computed<number>({
 
 const cost = computed(() => numShares.value * props.stock.currentPrice);
 
-function submit(isActive: Ref<boolean>) {
+function submit() {
+  if (props.type === 'buy') {
+    _submitBuy();
+  } else if (props.type === 'sell') {
+    _submitSell();
+  }
+  isDialogActive.value = false;
+}
+
+function _submitBuy() {
   walletStore.money -= props.stock.currentPrice * numShares.value;
   const stock = walletStore.ownedStocks.find(
     (s) => s.ticker === props.stock.company.abbr,
@@ -66,22 +80,35 @@ function submit(isActive: Ref<boolean>) {
     });
   }
   props.stock.availableShares -= numShares.value;
-  isActive.value = false;
+}
+
+function _submitSell() {
+  walletStore.money += props.stock.currentPrice * numShares.value;
+  const stock = walletStore.ownedStocks.find(
+    (s) => s.ticker === props.stock.company.abbr,
+  );
+  if (stock) {
+    stock.sharesOwned -= numShares.value;
+    if (stock.sharesOwned <= 0) {
+      walletStore.ownedStocks = walletStore.ownedStocks.filter(
+        (s) => s.ticker !== stock.ticker,
+      );
+    }
+  }
+  props.stock.availableShares += numShares.value;
 }
 </script>
 
 <template>
-  <v-dialog>
+  <v-dialog v-model="isDialogActive">
     <template #activator="{ props: activatorProps }">
       <v-btn v-bind="activatorProps" :icon="icon" variant="plain"></v-btn>
     </template>
-    <template #default="{ isActive }">
+    <template #default>
       <v-card :title="title">
         <template #text>
           <h4>
-            Buying {{ props.stock.company.abbr }} ({{
-              props.stock.company.name
-            }})
+            {{ props.stock.company.abbr }} ({{ props.stock.company.name }})
           </h4>
           <p class="mb-2">
             Current price: {{ formatMoney(props.stock.currentPrice) }}
@@ -140,10 +167,10 @@ function submit(isActive: Ref<boolean>) {
         </template>
         <template #actions>
           <div class="w-100 d-flex justify-end">
-            <v-btn variant="tonal" @click="isActive.value = false">
+            <v-btn variant="tonal" @click="isDialogActive = false">
               Cancel
             </v-btn>
-            <v-btn color="primary" variant="flat" @click="submit(isActive)">
+            <v-btn color="primary" variant="flat" @click="submit">
               Confirm
             </v-btn>
           </div>
