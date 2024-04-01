@@ -43,3 +43,4 @@ const moneyStr = computed(() => formatMoney(walletStore.money));
     </template>
   </v-card>
 </template>
+../utils/utils

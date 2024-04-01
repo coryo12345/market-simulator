@@ -3,8 +3,12 @@ export type TimeRaw = number;
 export class Time {
   private static currentTime: TimeRaw = 0;
 
-  static SetTime(time: TimeRaw) {
-    Time.currentTime = time;
+  static SetTime(time: TimeRaw | Time) {
+    if (typeof time === 'number') {
+      Time.currentTime = time;
+    } else if (typeof time === 'object') {
+      Time.currentTime = time.time;
+    }
   }
 
   static IncrementTime(): TimeRaw {
@@ -14,9 +18,11 @@ export class Time {
 
   private time: TimeRaw;
 
-  constructor(time?: TimeRaw) {
+  constructor(time?: TimeRaw | Time) {
     if (typeof time === 'number') {
       this.time = time;
+    } else if (typeof time === 'object') {
+      this.time = time.time;
     } else {
       this.time = Time.currentTime;
     }

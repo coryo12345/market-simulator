@@ -74,3 +74,4 @@ const headers = ref<Record<string, any>[]>([
   </v-data-table>
   <p v-else>Purchase some stocks on the market to add to your portfolio</p>
 </template>
+../../utils/utils
