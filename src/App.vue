@@ -20,12 +20,7 @@ onMounted(() => {
           @click="appStore.showSideNav = !appStore.showSideNav"
         ></v-app-bar-nav-icon>
       </template>
-      <v-app-bar-title>
-        <router-link :to="{ name: 'home' }" class="header-text">
-          MarketSim</router-link
-        >
-        <!-- MarketSim -->
-      </v-app-bar-title>
+      <v-app-bar-title> MarketSim </v-app-bar-title>
     </v-app-bar>
 
     <side-nav />
@@ -37,10 +32,3 @@ onMounted(() => {
     </v-main>
   </v-app>
 </template>
-
-<style scoped>
-.header-text {
-  color: inherit;
-  text-decoration: none;
-}
-</style>

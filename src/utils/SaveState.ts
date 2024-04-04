@@ -2,7 +2,7 @@ import { Time } from '../models/time';
 import { useMarketStore } from '../stores/market';
 import { useWalletStore } from '../stores/wallet';
 
-const LOCAL_STORAGE_KEY = 'marketsim-data';
+export const LOCAL_STORAGE_KEY = 'marketsim-data';
 
 export interface SaveStateData {
   wallet: Pick<ReturnType<typeof useWalletStore>, 'money' | 'ownedStocks'>;
