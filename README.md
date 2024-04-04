@@ -4,6 +4,8 @@ simple stock market simulator
 
 ## TODO
 * [ ] need to make stock growth have a chance to go the opposite direction
-* [ ] add save states
-* [ ] save to/from localstorage
-* [ ] save to/from json file
+* [x] add save states
+* [ ] auto save to/from localstorage
+* [ ] allow save to/from json file
+* [ ] add a main menu screen at /
+* [ ] split up views to reduce clutter, possibly tabs
