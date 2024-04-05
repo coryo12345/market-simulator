@@ -7,5 +7,5 @@ simple stock market simulator
 * [x] add save states
 * [ ] auto save to/from localstorage
 * [ ] allow save to/from json file
-* [ ] add a main menu screen at /
+* [x] add a main menu screen at /
 * [ ] split up views to reduce clutter, possibly tabs

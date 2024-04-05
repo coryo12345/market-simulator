@@ -7,14 +7,14 @@ import { Time } from '../models/time';
 export const useMarketStore = defineStore('market', function () {
   const stocks = ref<Stock[]>([]);
 
+  const tickInterval = ref<number | null>(null);
   function init() {
-    // check if state is in localstorage, if so use it. if not, create new market
     stocks.value = createNewMarket();
     Time.SetTime(0);
     for (let i = 0; i < 10; i++) {
       stocks.value = processStockTime(stocks.value);
     }
-    setInterval(() => {
+    tickInterval.value = setInterval(() => {
       stocks.value = processStockTime(stocks.value);
     }, 1000 * 10);
   }
@@ -23,10 +23,18 @@ export const useMarketStore = defineStore('market', function () {
     return stocks.value.find((s) => s.company.abbr === abbr);
   }
 
+  function $reset() {
+    if (tickInterval.value !== null) {
+      clearInterval(tickInterval.value);
+    }
+    init();
+  }
+
   return {
     stocks,
     init,
     getByAbbr,
+    $reset,
   };
 });
 

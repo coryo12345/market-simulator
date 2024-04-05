@@ -21,10 +21,16 @@ export const useWalletStore = defineStore('wallet', function () {
 
   const netWorth = computed<number>(() => stockValue.value + money.value);
 
+  function $reset() {
+    money.value = 1000.0;
+    ownedStocks.value = [];
+  }
+
   return {
     money,
     ownedStocks,
     stockValue,
     netWorth,
+    $reset,
   };
 });

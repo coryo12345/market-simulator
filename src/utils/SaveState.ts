@@ -58,6 +58,11 @@ export class SaveState {
     localStorage.setItem(LOCAL_STORAGE_KEY, str);
   }
 
-  // loadFromFile() {}
-  // saveToFile() {}
+  loadFromFile() {
+    // TODO
+  }
+
+  saveToFile() {
+    // TODO
+  }
 }
