@@ -3,6 +3,7 @@ import { useMarketStore } from '../stores/market';
 import { useWalletStore } from '../stores/wallet';
 
 export const LOCAL_STORAGE_KEY = 'marketsim-data';
+const DOWNLOAD_FILE_NAME = 'save.json';
 
 export interface SaveStateData {
   wallet: Pick<ReturnType<typeof useWalletStore>, 'money' | 'ownedStocks'>;
@@ -34,26 +35,32 @@ export class SaveState {
     };
   }
 
+  private loadDataFromStores() {
+    this.data.globalTime = new Time();
+    this.data.wallet.money = this.walletStore.money;
+    this.data.wallet.ownedStocks = this.walletStore.ownedStocks;
+    this.data.market.stocks = this.marketStore.stocks;
+  }
+
+  private loadStoresFromData() {
+    Time.SetTime(this.data.globalTime);
+    this.walletStore.money = this.data.wallet.money;
+    this.walletStore.ownedStocks = this.data.wallet.ownedStocks;
+    this.marketStore.stocks = this.data.market.stocks;
+  }
+
   loadFromLocalStorage(): boolean {
     const str = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!str) {
       return false;
     }
     this.data = JSON.parse(str);
-
-    Time.SetTime(this.data.globalTime);
-    this.walletStore.money = this.data.wallet.money;
-    this.walletStore.ownedStocks = this.data.wallet.ownedStocks;
-    this.marketStore.stocks = this.data.market.stocks;
-
+    this.loadStoresFromData();
     return true;
   }
 
   saveToLocalStorage() {
-    this.data.globalTime = new Time();
-    this.data.wallet.money = this.walletStore.money;
-    this.data.wallet.ownedStocks = this.walletStore.ownedStocks;
-    this.data.market.stocks = this.marketStore.stocks;
+    this.loadDataFromStores();
     const str = JSON.stringify(this.data);
     localStorage.setItem(LOCAL_STORAGE_KEY, str);
   }
@@ -63,6 +70,14 @@ export class SaveState {
   }
 
   saveToFile() {
-    // TODO
+    const str =
+      'data:text/json;charset=utf-8,' +
+      encodeURIComponent(JSON.stringify(this.data, null, 2));
+    const a = document.createElement('a');
+    a.setAttribute('href', str);
+    a.setAttribute('download', DOWNLOAD_FILE_NAME);
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
   }
 }

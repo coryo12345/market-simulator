@@ -4,9 +4,11 @@ import { LOCAL_STORAGE_KEY, SaveState } from '../../utils/SaveState';
 import { useWalletStore } from '../../stores/wallet';
 import { useMarketStore } from '../../stores/market';
 import { useRouter } from 'vue-router';
+import { useAppStore } from '../../stores/app';
 
 const walletStore = useWalletStore();
 const marketStore = useMarketStore();
+const appStore = useAppStore();
 const router = useRouter();
 
 // backup
@@ -42,6 +44,7 @@ function startNewGame() {
   walletStore.money = startingMoney.value;
   const saveState = new SaveState(walletStore, marketStore);
   saveState.saveToLocalStorage();
+  appStore.gameLoaded = true;
   router.push({ name: 'home' });
 }
 </script>

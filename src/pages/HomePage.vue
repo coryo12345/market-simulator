@@ -1,14 +1,24 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import MarketStockList from '../components/market/MarketStockList.vue';
 import { useWalletStore } from '../stores/wallet';
 import { formatMoney } from '../utils';
 import PortfolioList from '../components/market/PortfolioList.vue';
+import { useAppStore } from '../stores/app';
+import { useRouter } from 'vue-router';
 
 const walletStore = useWalletStore();
+const appStore = useAppStore();
+const router = useRouter();
 
 const stockValueStr = computed(() => formatMoney(walletStore.stockValue));
 const moneyStr = computed(() => formatMoney(walletStore.money));
+
+onMounted(() => {
+  if (!appStore.gameLoaded) {
+    router.replace({name: 'menu'})
+  }
+});
 </script>
 
 <template>
@@ -43,4 +53,3 @@ const moneyStr = computed(() => formatMoney(walletStore.money));
     </template>
   </v-card>
 </template>
-../utils/utils
