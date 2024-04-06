@@ -14,11 +14,12 @@ const { mobile } = useDisplay();
     :temporary="mobile"
   >
     <v-list>
-      <v-list-item title="Navigation drawer"></v-list-item>
       <save-state>
-        <template #activator="{ save, load }">
-          <v-list-item title="Save" @click="save"></v-list-item>
-          <v-list-item title="Load" @click="load"></v-list-item>
+        <template #activator="{ saveLocal, loadLocal, loadFile, saveFile }">
+          <v-list-item title="Save" @click="saveLocal" />
+          <v-list-item title="Load" @click="loadLocal" />
+          <v-list-item title="Save to File" @click="saveFile" />
+          <v-list-item title="Upload Save from File" @click="loadFile" />
         </template>
       </save-state>
     </v-list>

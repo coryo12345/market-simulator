@@ -30,7 +30,12 @@ async function continueSave() {
 
 <template>
   <div class="d-flex justify-center align-center mt-10">
-    <v-progress-circular color="primary" size="large" indeterminate class="mx-auto"></v-progress-circular>
+    <v-progress-circular
+      color="primary"
+      size="large"
+      indeterminate
+      class="mx-auto"
+    ></v-progress-circular>
   </div>
   <v-snackbar v-model="showError" color="red">
     <div class="d-flex align-center">
