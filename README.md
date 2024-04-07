@@ -4,7 +4,8 @@ simple stock market simulator
 
 ## TODO
 
-- [ ] need to make stock growth have a chance to go the opposite direction
+- [x] need to make stock growth have a chance to go the opposite direction
+- [ ] need to not allow stock values to go negative. What to do if they get that low?
 - [x] add save states
 - [x] fix continue button to support refreshing
 - [x] auto save to/from localstorage

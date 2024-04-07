@@ -65,11 +65,14 @@ function processStockTime(stocks: Stock[]): Stock[] {
       directionMult = -1;
     }
 
-    stock.currentPrice += Math.random() * changeMultiplier * directionMult;
+    const randomMult = changeMultiplier * 0.33 * directionMult;
+
+    stock.currentPrice +=
+      Math.random() * changeMultiplier * directionMult - randomMult;
     stock.historic.push(stock.currentPrice);
 
     // change growth
-    if (Math.random() * 10 < stock.company.volatility) {
+    if (Math.random() * 20 < stock.company.volatility) {
       stock.growth = GROWTHS[Math.floor(Math.random() * GROWTHS.length)];
     }
 
