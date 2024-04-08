@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useMarketStore } from '../../stores/market';
 import { useWalletStore } from '../../stores/wallet';
 import { SaveState } from '../../utils/SaveState';
+import LoadFileDialog from './LoadFile.vue';
 
 const walletStore = useWalletStore();
 const marketStore = useMarketStore();
@@ -27,8 +28,9 @@ function saveFile() {
   saveState.saveToFile();
 }
 
+const showFileDialog = ref(false);
 function loadFile() {
-  // TODO
+  showFileDialog.value = true;
 }
 </script>
 
@@ -51,4 +53,5 @@ function loadFile() {
       </span>
     </div>
   </v-snackbar>
+  <load-file-dialog v-model="showFileDialog"></load-file-dialog>
 </template>

@@ -54,7 +54,11 @@ export class SaveState {
     if (!str) {
       return false;
     }
-    this.data = JSON.parse(str);
+    try {
+      this.data = JSON.parse(str);
+    } catch (err) {
+      return false;
+    }
     this.loadStoresFromData();
     return true;
   }
@@ -65,8 +69,14 @@ export class SaveState {
     localStorage.setItem(LOCAL_STORAGE_KEY, str);
   }
 
-  loadFromFile() {
-    // TODO
+  loadFromFile(data: any): boolean {
+    try {
+      this.data = data;
+    } catch (err) {
+      return false;
+    }
+    this.loadStoresFromData();
+    return true;
   }
 
   saveToFile() {
