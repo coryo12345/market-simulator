@@ -10,6 +10,7 @@ simple stock market simulator
 - [x] fix continue button to support refreshing
 - [x] auto save to/from localstorage
 - [x] allow save to json file
-- [ ] allow load from json file
+- [x] allow load from json file
+- [ ] move load from json file to load screen, make sidenav be a link to that page
 - [x] add a main menu screen at /
 - [ ] split up views to reduce clutter, possibly tabs
